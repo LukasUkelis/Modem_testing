@@ -3,6 +3,7 @@ class Connection:
   def __init__(self):
     pass
   def returnConnection(self,connectionInfo):
+    
     self.ser = serial.Serial()
     self.ser.port = connectionInfo[1]
     self.ser.timeout= 0.10

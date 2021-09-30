@@ -1,6 +1,6 @@
 import csv
 class formatData:
-  fileName = 'results.csv'
+  fileName = './DataAndResults/Results.csv'
   def __init__(self):
       pass
   def writeTitle(self, titleInformation):

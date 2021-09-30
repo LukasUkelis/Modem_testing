@@ -1,6 +1,6 @@
-import dataParser 
-import connection
-import formatResultsFile
+import Modules.dataParser as dataParser
+import Modules.connection as connection
+import Modules.formatResultsFile as formatResultsFile
 class Testing:
   def __init__(self,data):
     self.data = dataParser.Data(data)
@@ -44,6 +44,10 @@ class Testing:
     self.connect()
     self.testAllCommands()
 
-test = Testing('data.json')
-deviceName = input("Enter device name:\n")
-test.testingDevice(deviceName)
+def main():
+    test = Testing('./DataAndResults/data.json')
+    deviceName = input("Enter device name:\n")
+    test.testingDevice(deviceName)
+
+if __name__ == "__main__":
+    main()

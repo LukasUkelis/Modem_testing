@@ -1,5 +1,6 @@
-
+from sys import modules
 import serial
+
 class Conecting:
   ser = serial.Serial()
   def __init__(self, connectionInfo):
@@ -7,17 +8,24 @@ class Conecting:
 
   def loadModule(self, moduleType):
     module = None
+   
+
     try:
-      module = __import__('{type}Connection'.format(type=moduleType))
+      mod= __import__('Modules.{type}Connection'.format(type=moduleType))
+      module= getattr(mod,'{type}Connection'.format(type=moduleType))
       return module
     except:
-      return False
+       print("Bad connection type")
+       return False
+      
 
   def loadMethod(self,module,methodName):
     try:
       method = getattr(module,methodName)
+      
       return method
     except:
+      print("Bad method")
       return False
 
   def connect(self):
