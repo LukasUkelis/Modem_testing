@@ -1,0 +1,45 @@
+{
+  "devices":
+  [
+    {
+      "device" : "TRM240",
+      "connection" : "serial",
+      "username" : "null",
+      "password" : "null",
+      "address" : "/dev/ttyUSB3",
+      "commands" :
+      [
+        {
+          "command":"AT+QINDCFG=?",
+          "extras":[],
+          "answer":"OK"
+        },
+        {
+          "command":"AT+CNUM=22",
+          "extras":[],
+          "answer":"OK"
+        }
+      ]
+    },
+    {
+      "device" : "TRM250",
+      "connection" : "serial",
+      "username" : "null",
+      "password" : "null",
+      "address" : "/dev/ttyUSB3",
+      "commands" :
+      [
+        {
+          "command":"AT+QINDCFG=?",
+          "extras":[],
+          "answer":"OK"
+        },
+        {
+          "command":"AT+CNUM=22",
+          "extras":[],
+          "answer":"OK"
+        }
+      ]
+    }
+  ]
+}

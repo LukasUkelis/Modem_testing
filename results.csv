@@ -1,0 +1,8 @@
+
+Device name: TRM250
+Connection type: serial
+Address: /dev/ttyUSB3
+
+Command,Extras,Status
+AT+QINDCFG=?,,Works correctly
+AT+CNUM=22,,Works incorrectly
