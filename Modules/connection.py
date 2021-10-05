@@ -1,28 +1,23 @@
-from sys import modules
-import serial
-
 class Conecting:
-  ser = serial.Serial()
-  def __init__(self, connectionInfo):
-    self.connectionInfo = connectionInfo
+  __connection = None
+  __connectionInfo = {'connectionType':"serial",'address':"/dev/ttyUSB2"}
 
-  def loadModule(self, moduleType):
+  def __init__(self,connectionInfo):
+    self.__connectionInfo = connectionInfo
+
+  def __loadModule(self, moduleType):
     module = None
-   
-
     try:
       mod= __import__('Modules.{type}Connection'.format(type=moduleType))
       module= getattr(mod,'{type}Connection'.format(type=moduleType))
       return module
     except:
        print("Bad connection type")
-       return False
-      
+       return False    
 
-  def loadMethod(self,module,methodName):
+  def __loadMethod(self,module,methodName):
     try:
       method = getattr(module,methodName)
-      
       return method
     except:
       print("Bad method")
@@ -30,21 +25,22 @@ class Conecting:
 
   def connect(self):
     methodName = "Connection"
-    module = self.loadModule(self.connectionInfo[0])
+    module = self.__loadModule("serial")
     if not module:
       return False
-    method = self.loadMethod(module,methodName)
+    method = self.__loadMethod(module,methodName)
     if not method:
       return False
-    fun = method()
-    self.ser = fun.returnConnection(self.connectionInfo)
-    return True
-  def readAnswer(self):
+    self.__connection = method(self.__connectionInfo)
     try:
-      answer = self.ser.readlines()
-      return answer[len(answer)-1]
+      self.__connection.connect()
     except:
+      print("No connection")
       return False
+    return True
+
   def writeCommand(self,command):
-      self.ser.write(command.encode())
-      return self.readAnswer()
+    return self.__connection.writeCommand(command)
+
+  def disconnect(self):
+    self.__connection.closeConnection()

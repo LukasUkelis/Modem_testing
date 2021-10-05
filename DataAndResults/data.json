@@ -6,7 +6,8 @@
       "connection" : "serial",
       "username" : "null",
       "password" : "null",
-      "address" : "/dev/ttyUSB2",
+      "address" : "/dev/ttyUSB6",
+      "port" : "null",
       "commands" :
       [
         {
@@ -26,11 +27,22 @@
       "connection" : "serial",
       "username" : "null",
       "password" : "null",
-      "address" : "/dev/ttyUSB3",
+      "address" : "/dev/ttyUSB2",
+      "port" : "null",
       "commands" :
       [
         {
           "command":"AT+QINDCFG=?",
+          "extras":[],
+          "answer":"OK"
+        },
+        {
+          "command":"AT+CGPADDR=?",
+          "extras":[],
+          "answer":"OK"
+        },
+        {
+          "command":"AT+CMGF=1",
           "extras":[],
           "answer":"OK"
         },
