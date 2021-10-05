@@ -24,7 +24,7 @@ class Testing:
 
   def __connect(self):
      self.__connection = connection.Conecting(self.__deviceData.getConnectionInfo())
-     self.__connection.connect()
+     return self.__connection.connect()
 
 
   def __writeResult(self, id , answer ):
@@ -55,7 +55,8 @@ class Testing:
     if not self.__checkDevice(deviceName):
       pass
     else:
-      self.__connect()
+      if not self.__connect():
+        print("No connection")
       self.__testAllCommands()
       self.__connection.disconnect()
 

@@ -50,6 +50,26 @@
           "command":"AT+CNUM=22",
           "extras":[],
           "answer":"OK"
+        },
+        {
+          "command":"AT+CGPADDR=?",
+          "extras":[],
+          "answer":"OK"
+        },
+        {
+          "command":"AT+CMGF=1",
+          "extras":[],
+          "answer":"OK"
+        },
+        {
+          "command":"AT+CGPADDR=?",
+          "extras":[],
+          "answer":"OK"
+        },
+        {
+          "command":"AT+CMGF=1",
+          "extras":[],
+          "answer":"OK"
         }
       ]
     }

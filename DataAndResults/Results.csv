@@ -8,3 +8,7 @@ AT+QINDCFG=?,,Works correctly
 AT+CGPADDR=?,,Works correctly
 AT+CMGF=1,,Works correctly
 AT+CNUM=22,,Does not work
+AT+CGPADDR=?,,Works correctly
+AT+CMGF=1,,Works correctly
+AT+CGPADDR=?,,Works correctly
+AT+CMGF=1,,Works correctly
