@@ -33,14 +33,15 @@ class Testing:
 
   def __testCommand(self,command,answer):
     try:
-      comandReturn = self.__connection.writeCommand(command)
-      if not comandReturn:
-        return "ERROR"
-      if(answer == comandReturn[:len(answer)].decode()):
-        return "Works correctly"
-      return "Does not work"
+      commandReturn = self.__connection.writeCommand(command)
     except:
       return "ERROR"
+    if not commandReturn:
+      return "ERROR"
+    if(answer == commandReturn):
+      return "Works correctly"
+    return "Does not work"
+    
 
   
   def __testAllCommands(self):
@@ -53,10 +54,10 @@ class Testing:
 
   def testingDevice(self,deviceName):
     if not self.__checkDevice(deviceName):
-      pass
+      return False
     else:
       if not self.__connect():
-        print("No connection")
+        return False
       self.__testAllCommands()
       self.__connection.disconnect()
 
@@ -64,7 +65,7 @@ class Testing:
 def main():
   test = Testing()
   deviceName = input("Enter device name:\n")
-  test.testingDevice(deviceName)
+  test.testingDevice(deviceName.upper())
 
 if __name__ == "__main__":
     main()

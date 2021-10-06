@@ -19,9 +19,9 @@ class deviceData:
   def getFormedCommand(self,id):
     if(len(self.__device['commands'][id]['extras'])>0):
       extras = self.formExtras(id)
-      return self.__device['commands'][id]['command']+"\r\n"+extras
+      return self.__device['commands'][id]['command']+extras
     else:
-      return self.__device['commands'][id]['command']+"\r\n"
+      return self.__device['commands'][id]['command']
   def getAnswer(self, id):
     try:
       return self.__device['commands'][id]['answer']
@@ -46,4 +46,4 @@ class deviceData:
 
   # Data for connection
   def getConnectionInfo(self):
-    return {'connectionType':self.__device['connection'],'address':self.__device['address'],'port':self.__device['username'],'port':self.__device['username'],'password':self.__device['password']}
+    return {'connectionType':self.__device['connection'],'address':self.__device['address'],'port':self.__device['port'],'username':self.__device['username'],'password':self.__device['password']}

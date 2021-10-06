@@ -1,6 +1,8 @@
+from select import select
+
+
 class Conecting:
   __connection = None
-  __connectionInfo = {'connectionType':"serial",'address':"/dev/ttyUSB2"}
 
   def __init__(self,connectionInfo):
     self.__connectionInfo = connectionInfo
@@ -8,11 +10,12 @@ class Conecting:
   def __loadModule(self, moduleType):
     module = None
     try:
+
       mod= __import__('Modules.{type}Connection'.format(type=moduleType))
       module= getattr(mod,'{type}Connection'.format(type=moduleType))
       return module
     except:
-       print("Bad connection type")
+       print("Bad connection type error in -> connection.py")
        return False    
 
   def __loadMethod(self,module,methodName):
@@ -20,12 +23,12 @@ class Conecting:
       method = getattr(module,methodName)
       return method
     except:
-      print("Bad method")
+      print("Bad method error in -> connection.py")
       return False
 
   def connect(self):
     methodName = "Connection"
-    module = self.__loadModule("serial")
+    module = self.__loadModule(self.__connectionInfo['connectionType'])
     if not module:
       return False
     method = self.__loadMethod(module,methodName)
@@ -35,7 +38,7 @@ class Conecting:
     try:
       self.__connection.connect()
     except:
-      print("No connection")
+      print("No connection error in -> connection.py")
       return False
     return True
 

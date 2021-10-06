@@ -21,19 +21,21 @@ class Connection:
       return False
   def writeCommand(self,command):
     try:
+      command = command+"\r\n"
       self.__connection.write(command.encode())
     except:
-      print("Command writing error")
+      print("Command writing error in -> serialConnection.py")
       return False
     answer = self.__readAnswer()
     if not answer:
-      print("Answer reading error")
+      print("Answer reading error in -> serialConnection.py")
       return False
-    return answer[len(answer)-1]
+    answer = answer[len(answer)-1]
+    return answer.decode().strip("\r\n")
 
   def closeConnection(self):
     try:
       self.__connection.close()
     except:
-      print("Connection closing error")
+      print("Connection closing error in -> serialConnection.py")
       return False
