@@ -34,12 +34,22 @@
         {
           "command":"gsmctl -B",
           "extras":[],
-          "answer":"3"
+          "answer":"BadAnswer"
+        },
+        {
+          "command":"gsmctl -F",
+          "extras":[],
+          "answer":"+QNWINFO: \"FDD LTE\",\"24601\",\"LTE BAND 1\",300"
         },
         {
           "command":"gsmctl -j",
           "extras":[],
           "answer":"Connected"
+        },
+        {
+          "command":"gsmctl -S -t",
+          "extras":[],
+          "answer":"Used: 6 Total: 20"
         },
         {
           "command":"gsmctl -y",
@@ -49,7 +59,17 @@
         {
           "command":"gsmctl -x",
           "extras":[],
-          "answer":"BlogasRevisionNumber"
+          "answer":"BadAnswer"
+        },
+        {
+          "command":"gsmctl -A AT+CSQ",
+          "extras":[],
+          "answer":"+CSQ: 30,99"
+        },
+        {
+          "command":"gsmctl -oqt",
+          "extras":[],
+          "answer":"Omnitel -53 LTE"
         }
       ]
     },

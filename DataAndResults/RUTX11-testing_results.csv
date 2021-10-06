@@ -4,7 +4,11 @@ Connection type: ssh
 Address: 192.168.1.1
 
 Command,Extras,Status
-gsmctl -B,,Works correctly
+gsmctl -B,,Does not work
+gsmctl -F,,Works correctly
 gsmctl -j,,Works correctly
+gsmctl -S -t,,Works correctly
 gsmctl -y,,Works correctly
 gsmctl -x,,Does not work
+gsmctl -A AT+CSQ,,Works correctly
+gsmctl -oqt,,Works correctly

@@ -15,11 +15,21 @@ class Connection:
     self.__ssh.connect(host,port=port,username=username,password=password)
 
   def __readAnswer(self,stdout):
+    finalAnswer = ""
+    answer = None
     try:
-      return stdout.readlines()
+      answer = stdout.readlines()
     except:
       print("Reading error in -> sshConnection.py")
       return False
+    i = 0
+    finalAnswer = answer[0].strip("\n").strip("\r")
+    for ans in answer:
+      if i != 0:
+        finalAnswer = finalAnswer +" "+ ans.strip("\n").strip("\r")
+      i = i+1
+    return finalAnswer
+    
 
 
   def writeCommand(self,command):
@@ -31,8 +41,8 @@ class Connection:
     answer = self.__readAnswer(stdout)
     if not answer:
       return False
-    answer =answer[len(answer)-1]
-    return answer.strip("\n").strip("\r")
+    return answer
+    
     
   def closeConnection(self):
     self.__ssh.close()
