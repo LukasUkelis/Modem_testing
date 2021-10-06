@@ -1,10 +1,10 @@
-
 import paramiko
 class Connection:
   __ssh = None
   __connectionInfo = None
   def __init__(self,connectionInfo):
     self.__connectionInfo = connectionInfo
+
   def connect(self):
     host = self.__connectionInfo['address']
     port =self.__connectionInfo['port']
@@ -20,6 +20,8 @@ class Connection:
     except:
       print("Reading error in -> sshConnection.py")
       return False
+
+
   def writeCommand(self,command):
     try:
       stdin, stdout, stderr =self.__ssh.exec_command(command)
@@ -33,4 +35,4 @@ class Connection:
     return answer.strip("\n").strip("\r")
     
   def closeConnection(self):
-    pass
+    self.__ssh.close()

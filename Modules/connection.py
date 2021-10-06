@@ -1,6 +1,3 @@
-from select import select
-
-
 class Conecting:
   __connection = None
 
@@ -10,7 +7,6 @@ class Conecting:
   def __loadModule(self, moduleType):
     module = None
     try:
-
       mod= __import__('Modules.{type}Connection'.format(type=moduleType))
       module= getattr(mod,'{type}Connection'.format(type=moduleType))
       return module

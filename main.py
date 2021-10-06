@@ -1,6 +1,6 @@
 import Modules.dataParser as dataParser
 import Modules.connection as connection
-import Modules.formatResultsFile as formatResultsFile
+import Modules.results as results
 import Modules.device as device
 class Testing:
   __dataFile = './DataAndResults/data.json'
@@ -21,7 +21,7 @@ class Testing:
       return False
     else:
       self.__deviceData = device.deviceData(self.__device)
-      self.__results = formatResultsFile.formatData(self.__deviceData.getDeviceInfo())
+      self.__results = results.formatData(self.__deviceData.getDeviceInfo())
       self.__results.openWriter()
       self.__results.writeTitle()
       return True

@@ -1,6 +1,4 @@
 import csv
-from os import write
-
 class formatData:
   __fileName = None
   __deviceInfo = None
