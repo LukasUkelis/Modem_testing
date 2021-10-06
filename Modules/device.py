@@ -47,7 +47,3 @@ class deviceData:
   # Data for connection
   def getConnectionInfo(self):
     return {'connectionType':self.__device['connection'],'address':self.__device['address'],'port':self.__device['username'],'port':self.__device['username'],'password':self.__device['password']}
-
-  
-
-  
