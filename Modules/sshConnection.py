@@ -30,12 +30,7 @@ class Connection:
     if not answer:
       return False
     answer =answer[len(answer)-1]
-    return answer.strip("\n")
+    return answer.strip("\n").strip("\r")
     
   def closeConnection(self):
     pass
-
-# s = Connection({'address':"192.168.1.1",'port':"22",'username':"root",'password':"Admin123"})
-# s.connect()
-# print(s.writeCommand("gsmctl -p wwan0"))
-# s.closeConnection()

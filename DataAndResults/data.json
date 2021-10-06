@@ -34,12 +34,22 @@
         {
           "command":"gsmctl -B",
           "extras":[],
-          "answer":"not supported"
+          "answer":"3"
         },
         {
           "command":"gsmctl -j",
           "extras":[],
-          "answer":"Disconnected"
+          "answer":"Connected"
+        },
+        {
+          "command":"gsmctl -y",
+          "extras":[],
+          "answer":"EG06ELAR04A04M4G"
+        },
+        {
+          "command":"gsmctl -x",
+          "extras":[],
+          "answer":"BlogasRevisionNumber"
         }
       ]
     },

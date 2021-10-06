@@ -3,14 +3,17 @@ import Modules.connection as connection
 import Modules.formatResultsFile as formatResultsFile
 import Modules.device as device
 class Testing:
+  __dataFile = './DataAndResults/data.json'
   __device  = None
   __deviceData = None
-  __dataFile = './DataAndResults/data.json'
+  
   __connection = None
+
   __results = None
+
   def __init__(self):
     self.data = dataParser.Data(self.__dataFile)
-    
+  
   def __checkDevice(self,deviceName):
     self.__device = self.data.getDevice(deviceName)
     if not self.__device:
@@ -18,8 +21,9 @@ class Testing:
       return False
     else:
       self.__deviceData = device.deviceData(self.__device)
-      self.__results = formatResultsFile.formatData()
-      self.__results.writeTitle(self.__deviceData.getDeviceInfo())
+      self.__results = formatResultsFile.formatData(self.__deviceData.getDeviceInfo())
+      self.__results.openWriter()
+      self.__results.writeTitle()
       return True
 
   def __connect(self):
