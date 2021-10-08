@@ -31,12 +31,9 @@ class Conecting:
     if not method:
       return False
     self.__connection = method(self.__connectionInfo)
-    self.__connection.connect()
-    try:
-      self.__connection.connect()
-    except:
-      print("No connection error in -> connection.py")
+    if not self.__connection.connect():
       return False
+
     return True
 
   def writeCommand(self,command):

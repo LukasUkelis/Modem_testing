@@ -59,7 +59,7 @@ class Testing:
     while id < self.__deviceData.getCommandsCount():
       answer = self.__testCommand(self.__deviceData.getFormedCommand(id),self.__deviceData.getAnswer(id))
       self.__writeResult(id,answer)
-      print(f"\rWorking commands: {self.__goodCommands}   Not working commands:{self.__badCommands} Current command: {self.__deviceData.getFormedCommand(id)} ", end='\r')
+      print(f"\rWorking commands: {self.__goodCommands}   Not working commands:{self.__badCommands} Current command: {self.__deviceData.getFormedCommand(id)}         ", end='\r')
       id = id +1
     print(f"\r                                                                                                                           ", end='\r')
     print(f"\r\nWorking commands: {self.__goodCommands}")

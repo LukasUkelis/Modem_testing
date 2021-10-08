@@ -15,7 +15,11 @@ class Connection:
     password = self.__connectionInfo['password']
     self.__ssh = paramiko.SSHClient()
     self.__ssh.set_missing_host_key_policy(paramiko.AutoAddPolicy())
-    self.__ssh.connect(host,port=port,username=username,password=password)
+    try:
+      self.__ssh.connect(host,port=port,username=username,password=password)
+    except:
+      print("Connection error in -> sshConnection.py")
+      return False
     self.__shell = self.__ssh.invoke_shell()
     self.__shell.send("/etc/init.d/gsmd stop\n")
     time.sleep(0.2)
@@ -26,6 +30,7 @@ class Connection:
     while not self.__shell.recv_ready():
       time.sleep(0.5)
     self.__shell.recv(9999).decode("ascii")
+    return True
 
   def __parsingDataToList(self, data):
     dataList = data.decode()

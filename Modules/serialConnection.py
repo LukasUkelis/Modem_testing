@@ -6,13 +6,19 @@ class Connection:
     self.__connectionInfo = connectionInfo
 
   def connect(self):
-    self.__connection = serial.Serial()
-    self.__connection.port = self.__connectionInfo['address']
-    self.__connection.timeout= 0.1
-    self.__connection.open()
+
+    try:
+      self.__connection = serial.Serial()
+      self.__connection.port = self.__connectionInfo['address']
+      self.__connection.timeout= 0.5
+      self.__connection.open()
+    except:
+      print("Connection error in -> serialConnection.py")
+      return False
     self.__connection.write("AT&F\r\n".encode())
     self.__connection.write("ATE1\r\n".encode())
     self.__connection.readlines()
+    return True
 
   
   def executeCommand(self,command):
