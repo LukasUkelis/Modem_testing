@@ -2,16 +2,17 @@ import Modules.dataParser as dataParser
 import Modules.connection as connection
 import Modules.results as results
 import Modules.device as device
-import time
+import Modules.FTPupload as ftpupload
+
 class Testing:
   __dataFile = './DataAndResults/data.json'
   __device  = None
   __deviceData = None
   __connection = None
   __results = None
+  __FTPresults = None
   __goodCommands = 0
   __badCommands = 0
-  __errorCommands = 0
 
   def __init__(self):
     self.data = dataParser.Data(self.__dataFile)
@@ -26,6 +27,7 @@ class Testing:
       self.__results = results.formatData(self.__deviceData.getDeviceInfo())
       self.__results.openWriter()
       self.__results.writeTitle()
+      self.__FTPresults = ftpupload.upload()
       return True
 
   def __connect(self):
@@ -66,12 +68,14 @@ class Testing:
     print(f"\rNot working commands:{self.__badCommands}")
 
 
-  def testingDevice(self,deviceName):
+  def testingDevice(self,deviceName, writingToFTP):
     if not self.__checkDevice(deviceName):
       return False
     else:
       if not self.__connect():
         return False
       self.__testAllCommands()
-      time.sleep(1)
+      if writingToFTP:
+        self.__FTPresults.upladeTest(self.__deviceData.getDeviceInfo())
       self.__connection.disconnect()
+      
