@@ -1,75 +1,16 @@
-import Modules.dataParser as dataParser
-import Modules.connection as connection
-import Modules.results as results
-import Modules.device as device
-class Testing:
-  __dataFile = './DataAndResults/data.json'
-  __device  = None
-  __deviceData = None
-  
-  __connection = None
-
-  __results = None
-
-  def __init__(self):
-    self.data = dataParser.Data(self.__dataFile)
-  
-  def __checkDevice(self,deviceName):
-    self.__device = self.data.getDevice(deviceName)
-    if not self.__device:
-      print("{dev} does not exist".format(dev = deviceName))
-      return False
-    else:
-      self.__deviceData = device.deviceData(self.__device)
-      self.__results = results.formatData(self.__deviceData.getDeviceInfo())
-      self.__results.openWriter()
-      self.__results.writeTitle()
-      return True
-
-  def __connect(self):
-     self.__connection = connection.Conecting(self.__deviceData.getConnectionInfo())
-     return self.__connection.connect()
-
-
-  def __writeResult(self, id , answer ):
-    self.__results.writeCommand({'command':self.__deviceData.getRawCommand(id),'extras':self.__deviceData.getRawExtras(id),'answer':answer})
-
-
-  def __testCommand(self,command,answer):
-    try:
-      commandReturn = self.__connection.writeCommand(command)
-    except:
-      return "ERROR"
-    if not commandReturn:
-      return "ERROR"
-    if(answer == commandReturn):
-      return "Works correctly"
-    return "Does not work"
-    
-
-  
-  def __testAllCommands(self):
-    id = 0
-    while id < self.__deviceData.getCommandsCount():
-      answer = self.__testCommand(self.__deviceData.getFormedCommand(id),self.__deviceData.getAnswer(id))
-      self.__writeResult(id,answer)
-      id = id +1
-
-
-  def testingDevice(self,deviceName):
-    if not self.__checkDevice(deviceName):
-      return False
-    else:
-      if not self.__connect():
-        return False
-      self.__testAllCommands()
-      self.__connection.disconnect()
-
-
+import Modules.testing as testing
+import argparse
 def main():
-  test = Testing()
-  deviceName = input("Enter device name:\n")
-  test.testingDevice(deviceName.upper())
+  parser = argparse.ArgumentParser()
+  parser.add_argument('--d','-device', help='Device name')
+  args = parser.parse_args()
+  if (args.d == None):
+    print("Enter device name. --d/-device device name")
+  else:
+    print("Testing device: {devicename}".format(devicename = args.d.upper()))
+    test = testing.Testing()
+    test.testingDevice(args.d.upper())
+
 
 if __name__ == "__main__":
     main()

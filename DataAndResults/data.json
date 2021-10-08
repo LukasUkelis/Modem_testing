@@ -2,27 +2,6 @@
   "devices":
   [
     {
-      "device" : "TRM240",
-      "connection" : "serial",
-      "username" : "null",
-      "password" : "null",
-      "address" : "/dev/ttyUSB6",
-      "port" : "null",
-      "commands" :
-      [
-        {
-          "command":"AT+QINDCFG=?",
-          "extras":[],
-          "answer":"OK"
-        },
-        {
-          "command":"AT+CNUM=22",
-          "extras":[],
-          "answer":"OK"
-        }
-      ]
-    },
-    {
       "device" : "RUTX11",
       "connection" : "ssh",
       "username" : "root",
@@ -32,44 +11,54 @@
       "commands" :
       [
         {
-          "command":"gsmctl -B",
+          "command":"ATI",
           "extras":[],
-          "answer":"BadAnswer"
+          "answer":"OK"
         },
         {
-          "command":"gsmctl -F",
+          "command":"AT+CPAS=?",
           "extras":[],
-          "answer":"+QNWINFO: \"FDD LTE\",\"24601\",\"LTE BAND 1\",300"
+          "answer":"OK"
         },
         {
-          "command":"gsmctl -j",
-          "extras":[],
-          "answer":"Connected"
-        },
-        {
-          "command":"gsmctl -S -t",
-          "extras":[],
-          "answer":"Used: 6 Total: 20"
-        },
-        {
-          "command":"gsmctl -y",
+          "command":"AT+GMR",
           "extras":[],
           "answer":"EG06ELAR04A04M4G"
         },
         {
-          "command":"gsmctl -x",
+          "command":"AT+CSDH?",
           "extras":[],
           "answer":"BadAnswer"
         },
         {
-          "command":"gsmctl -A AT+CSQ",
+          "command":"AT+CSDH?",
           "extras":[],
-          "answer":"+CSQ: 30,99"
+          "answer":"OK"
         },
         {
-          "command":"gsmctl -oqt",
+          "command":"AT+CLVL?",
           "extras":[],
-          "answer":"Omnitel -53 LTE"
+          "answer":"OK"
+        },
+        {
+          "command":"AT+CMUT=1",
+          "extras":[],
+          "answer":"ERROR"
+        },
+        {
+          "command":"AT+CTZR=?",
+          "extras":[],
+          "answer":"OK"
+        },
+        {
+          "command":"AT+CSQ",
+          "extras":[],
+          "answer":"OK"
+        },
+        {
+          "command":"AT+CCLK?",
+          "extras":[],
+          "answer":"OK"
         }
       ]
     },
@@ -88,7 +77,7 @@
           "answer":"OK"
         },
         {
-          "command":"AT+CGPADDR=?",
+          "command":"AT+CGPADDR=422",
           "extras":[],
           "answer":"OK"
         },
@@ -113,12 +102,22 @@
           "answer":"OK"
         },
         {
-          "command":"AT+CGPADDR=?",
+          "command":"AT+COPN",
+          "extras":[],
+          "answer":"+COPN: \"54715\",\"VODAFONE PF\""
+        },
+        {
+          "command":"ATI",
+          "extras":[],
+          "answer":"BadAnswer"
+        },
+        {
+          "command":"AT+CBC=?",
           "extras":[],
           "answer":"OK"
         },
         {
-          "command":"AT+CMGF=1",
+          "command":"AT+CCLK?",
           "extras":[],
           "answer":"OK"
         }

@@ -14,12 +14,8 @@ class Connection:
     self.__connection.write("ATE1\r\n".encode())
     self.__connection.readlines()
 
-  def __readAnswer(self):
-    try:
-      return self.__connection.readlines()
-    except:
-      return False
-  def writeCommand(self,command):
+  
+  def executeCommand(self,command):
     try:
       command = command+"\r\n"
       self.__connection.write(command.encode())
@@ -30,8 +26,18 @@ class Connection:
     if not answer:
       print("Answer reading error in -> serialConnection.py")
       return False
-    answer = answer[len(answer)-1]
-    return answer.decode().strip("\r\n")
+    return answer
+
+  def __readAnswer(self):
+    answer = None
+    try:
+      answer = self.__connection.readlines()
+    except:
+      return False
+    finalAnswer = []
+    for ans in answer:
+      finalAnswer.append(ans.decode().strip("\r\n"))
+    return finalAnswer
 
   def closeConnection(self):
     try:
@@ -39,3 +45,5 @@ class Connection:
     except:
       print("Connection closing error in -> serialConnection.py")
       return False
+
+

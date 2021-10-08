@@ -31,6 +31,7 @@ class Conecting:
     if not method:
       return False
     self.__connection = method(self.__connectionInfo)
+    self.__connection.connect()
     try:
       self.__connection.connect()
     except:
@@ -39,7 +40,7 @@ class Conecting:
     return True
 
   def writeCommand(self,command):
-    return self.__connection.writeCommand(command)
+    return self.__connection.executeCommand(command)
 
   def disconnect(self):
     self.__connection.closeConnection()
