@@ -1,3 +1,6 @@
+from Modules.colors import bcolors
+
+
 class Conecting:
   __connection = None
 
@@ -11,7 +14,7 @@ class Conecting:
       module= getattr(mod,'{type}Connection'.format(type=moduleType))
       return module
     except:
-       print("Bad connection type error in -> connection.py")
+       print(f"{bcolors.FAIL}Bad connection type error in -> connection.py")
        return False    
 
   def __loadMethod(self,module,methodName):

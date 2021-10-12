@@ -1,5 +1,6 @@
 import paramiko
 import time
+from Modules.colors import bcolors
 
 class Connection:
   __ssh = None
@@ -18,19 +19,39 @@ class Connection:
     try:
       self.__ssh.connect(host,port=port,username=username,password=password)
     except:
-      print("Connection error in -> sshConnection.py")
+      print(f"{bcolors.FAIL}Connection error in -> sshConnection.py")
       return False
     self.__shell = self.__ssh.invoke_shell()
-    self.__shell.send("/etc/init.d/gsmd stop\n")
-    time.sleep(0.2)
-    self.__shell.send("socat /dev/tty,raw,echo=0,escape=0x03 /dev/ttyUSB3,raw,setsid,sane,echo=0,nonblock ; stty sane\n")
-    time.sleep(0.2)
-    self.__shell.send("AT&F\n")
-    time.sleep(0.2)
     while not self.__shell.recv_ready():
       time.sleep(0.5)
-    self.__shell.recv(9999).decode("ascii")
-    return True
+    self.__shell.recv(9999)
+
+    self.__shell.send("uci get system.@system[0].routername\n")
+    while not self.__shell.recv_ready():
+      time.sleep(0.5)
+    deviceName = self.__shell.recv(9999)
+    if not self.__checkIFdeviceNamecorrect(deviceName):
+      return False
+    else:
+      self.__shell.send("/etc/init.d/gsmd stop\n")
+      time.sleep(0.2)
+      self.__shell.send("socat /dev/tty,raw,echo=0,escape=0x03 /dev/ttyUSB3,raw,setsid,sane,echo=0,nonblock ; stty sane\n")
+      time.sleep(0.2)
+      self.__shell.send("AT&F\n")
+      time.sleep(0.2)
+      while not self.__shell.recv_ready():
+        time.sleep(0.5)
+      self.__shell.recv(9999).decode("ascii")
+      return True
+
+  def __checkIFdeviceNamecorrect(self,data):
+    dataList = data.decode()
+    dataList = dataList.split("\r\n")
+    if(dataList[1]==self.__connectionInfo['deviceName']):
+      return True
+    else:
+      print(f"{bcolors.FAIL}Device name do not match")
+      return False
 
   def __parsingDataToList(self, data):
     dataList = data.decode()
@@ -46,7 +67,7 @@ class Connection:
       return self.__parsingDataToList(data)
       
     except:
-      print("Command writing error in -> sshConnection.py")
+      print(f"{bcolors.FAIL}Command writing error in -> sshConnection.py")
       return False    
     
   def closeConnection(self):

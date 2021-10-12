@@ -1,6 +1,0 @@
-
-Device name: TRM240
-Connection type: serial
-Address: /dev/ttyUSB6
-
-Command,Extras,Status

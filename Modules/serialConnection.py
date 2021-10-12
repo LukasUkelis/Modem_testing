@@ -1,4 +1,5 @@
 import serial
+from Modules.colors import bcolors
 class Connection:
   __connection = None
   __connectionInfo = None
@@ -13,7 +14,7 @@ class Connection:
       self.__connection.timeout= 0.5
       self.__connection.open()
     except:
-      print("Connection error in -> serialConnection.py")
+      print(f"{bcolors.FAIL}Connection error in -> serialConnection.py")
       return False
     self.__connection.write("AT&F\r\n".encode())
     self.__connection.write("ATE1\r\n".encode())
@@ -26,11 +27,11 @@ class Connection:
       command = command+"\r\n"
       self.__connection.write(command.encode())
     except:
-      print("Command writing error in -> serialConnection.py")
+      print(f"{bcolors.FAIL}Command writing error in -> serialConnection.py")
       return False
     answer = self.__readAnswer()
     if not answer:
-      print("Answer reading error in -> serialConnection.py")
+      print(f"{bcolors.FAIL}Answer reading error in -> serialConnection.py")
       return False
     return answer
 
@@ -49,7 +50,7 @@ class Connection:
     try:
       self.__connection.close()
     except:
-      print("Connection closing error in -> serialConnection.py")
+      print(f"{bcolors.FAIL}Connection closing error in -> serialConnection.py")
       return False
 
 

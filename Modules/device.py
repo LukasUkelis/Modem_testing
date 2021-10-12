@@ -52,10 +52,10 @@ class deviceData:
     return formed
 
 
-  def getDeviceInfo(self):
-    return {'deviceName':self.__device['device'],'connectionType':self.__device['connection'],'address':self.__device['address']}
+  def getDeviceInfo(self,address):
+    return {'deviceName':self.__device['device'],'connectionType':self.__device['connection'],'address':address}
 
 
   # Data for connection
-  def getConnectionInfo(self):
-    return {'connectionType':self.__device['connection'],'address':self.__device['address'],'port':self.__device['port'],'username':self.__device['username'],'password':self.__device['password']}
+  def getConnectionInfo(self,address,port):
+    return {'connectionType':self.__device['connection'],'address':address,'deviceName':self.__device['device'],'port':port,'username':self.__device['username'],'password':self.__device['password']}

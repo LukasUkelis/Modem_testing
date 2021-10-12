@@ -2,7 +2,10 @@ import Modules.dataParser as dataParser
 import Modules.connection as connection
 import Modules.results as results
 import Modules.device as device
-import Modules.FTPupload as ftpupload
+import Modules.upload as upload
+from Modules.colors import bcolors
+
+
 
 class Testing:
   __dataFile = './DataAndResults/data.json'
@@ -10,28 +13,29 @@ class Testing:
   __deviceData = None
   __connection = None
   __results = None
-  __FTPresults = None
+  __resultsUpload= None
   __goodCommands = 0
   __badCommands = 0
+  __devicePath = None
 
   def __init__(self):
     self.data = dataParser.Data(self.__dataFile)
   
-  def __checkDevice(self,deviceName):
+  def __checkDevice(self,deviceName,address):
     self.__device = self.data.getDevice(deviceName)
     if not self.__device:
-      print("{dev} does not exist".format(dev = deviceName))
+      print(f"{bcolors.FAIL}{deviceName} does not exist")
       return False
     else:
       self.__deviceData = device.deviceData(self.__device)
-      self.__results = results.formatData(self.__deviceData.getDeviceInfo())
-      self.__results.openWriter()
+      self.__results = results.formatData(self.__deviceData.getDeviceInfo(address))
+      self.__devicePath = self.__results.openWriter()
       self.__results.writeTitle()
-      self.__FTPresults = ftpupload.upload()
+      self.__resultsUpload = upload.upload()
       return True
 
-  def __connect(self):
-     self.__connection = connection.Conecting(self.__deviceData.getConnectionInfo())
+  def __connect(self,address,port):
+     self.__connection = connection.Conecting(self.__deviceData.getConnectionInfo(address,port))
      return self.__connection.connect()
 
 
@@ -49,33 +53,33 @@ class Testing:
     for co in commandReturn:
       if(co == answer):
         self.__goodCommands = self.__goodCommands +1
-        return "Works correctly"
+        return "Passed"
     self.__badCommands  = self.__badCommands +1
-    return "Does not work"
+    return "Failed"
     
   
   
   def __testAllCommands(self):
     id = 0
-    print("Program have to test {number} commands".format(number = self.__deviceData.getCommandsCount()), flush=True)
+    print(f"Testing{bcolors.HEADER} {self.__deviceData.getCommandsCount()}{bcolors.ENDC} commands.")
     while id < self.__deviceData.getCommandsCount():
       answer = self.__testCommand(self.__deviceData.getFormedCommand(id),self.__deviceData.getAnswer(id))
       self.__writeResult(id,answer)
-      print(f"\rWorking commands: {self.__goodCommands}   Not working commands:{self.__badCommands} Current command: {self.__deviceData.getFormedCommand(id)}         ", end='\r')
+      print(f"\r{bcolors.OKGREEN}Passed commands: {self.__goodCommands}   {bcolors.FAIL}Failed commands: {self.__badCommands}   {bcolors.OKBLUE}Current command: {self.__deviceData.getFormedCommand(id)}         {bcolors.ENDC}", end='\r')
       id = id +1
     print(f"\r                                                                                                                           ", end='\r')
-    print(f"\r\nWorking commands: {self.__goodCommands}")
-    print(f"\rNot working commands:{self.__badCommands}")
+    print(f"\r\n{bcolors.OKGREEN}Passed commands:  {self.__goodCommands}{bcolors.ENDC}")
+    print(f"\r{bcolors.FAIL}Failed commands:  {self.__badCommands}{bcolors.ENDC}")
+    self.__results.closeWriter()
 
 
-  def testingDevice(self,deviceName, writingToFTP):
-    if not self.__checkDevice(deviceName):
+  def testingDevice(self,deviceName, writingToFTP,address,port):
+    if not self.__checkDevice(deviceName,address):
       return False
     else:
-      if not self.__connect():
+      if not self.__connect(address,port):
         return False
       self.__testAllCommands()
       if writingToFTP:
-        self.__FTPresults.upladeTest(self.__deviceData.getDeviceInfo())
+        self.__resultsUpload.FTPuploadTest(self.__devicePath)
       self.__connection.disconnect()
-      

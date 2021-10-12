@@ -2,12 +2,10 @@
   "devices":
   [
     {
-      "device" : "RUTX11",
+      "device" : "RUT950",
       "connection" : "ssh",
       "username" : "root",
       "password" : "Admin123",
-      "address" : "192.168.1.1",
-      "port" : "22",
       "commands" :
       [
         {
@@ -67,8 +65,6 @@
       "connection" : "serial",
       "username" : "null",
       "password" : "null",
-      "address" : "/dev/ttyUSB2",
-      "port" : "null",
       "commands" :
       [
         {
