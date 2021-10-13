@@ -1,4 +1,5 @@
-from Modules.colors import bcolors
+
+import Modules.colors as bcolors
 
 
 class Conecting:

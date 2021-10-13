@@ -1,5 +1,5 @@
 import serial
-from Modules.colors import bcolors
+import Modules.colors as bcolors
 class Connection:
   __connection = None
   __connectionInfo = None

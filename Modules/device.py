@@ -13,7 +13,7 @@ class deviceData:
       return False
 
 
-  def formeExtras(self,id):
+  def formExtras(self,id):
       formed = ""
       for extra in self.__device['commands'][id]['extras']:
         formed = formed+extra

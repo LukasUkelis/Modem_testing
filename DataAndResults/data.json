@@ -2,7 +2,7 @@
   "devices":
   [
     {
-      "device" : "RUT950",
+      "device" : "RUTX11",
       "connection" : "ssh",
       "username" : "root",
       "password" : "Admin123",

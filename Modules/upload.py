@@ -15,7 +15,6 @@ class upload:
     except:
       print("FTP connection error in -> FTPupload.py")
       return False
-    ftp.cwd('/home/studentas/Desktop/testing_ftp')
     file = open(filePath,mode='rb')
     ftp.storbinary('STOR '+fileName, file)
     ftp.quit()

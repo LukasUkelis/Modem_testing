@@ -3,7 +3,7 @@ import Modules.connection as connection
 import Modules.results as results
 import Modules.device as device
 import Modules.upload as upload
-from Modules.colors import bcolors
+import Modules.colors as bcolors
 
 
 
@@ -73,13 +73,13 @@ class Testing:
     self.__results.closeWriter()
 
 
-  def testingDevice(self,deviceName, writingToFTP,address,port):
-    if not self.__checkDevice(deviceName,address):
+  def testingDevice(self,arguments):
+    if not self.__checkDevice(arguments['deviceName'],arguments['address']):
       return False
     else:
-      if not self.__connect(address,port):
+      if not self.__connect(arguments['address'],arguments['port']):
         return False
       self.__testAllCommands()
-      if writingToFTP:
-        self.__resultsUpload.FTPuploadTest(self.__devicePath)
+      if arguments['ftp']:
+        self.__resultsUpload.FTPuploadTest(self.__devicePath,{'username':arguments['username'],'password':arguments['passwoer'],'address':arguments['addressftp']})
       self.__connection.disconnect()
