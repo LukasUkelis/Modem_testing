@@ -1,9 +1,9 @@
 import ftplib
 
 class upload:
-  __ftp_host = "188.69.245.225"
-  __ftp_user = "teltonika"
-  __fp_password = "teltonika1212"
+  __ftp_host = "192.168.10.58"
+  __ftp_user = "studentas"
+  __fp_password = "iotakademija"
   def __init__(self) -> None:
       pass 
   def FTPuploadTest(self,deviceName):
@@ -15,6 +15,7 @@ class upload:
     except:
       print("FTP connection error in -> FTPupload.py")
       return False
+    ftp.cwd('/home/studentas/Desktop/testing_ftp')
     file = open(filePath,mode='rb')
     ftp.storbinary('STOR '+fileName, file)
     ftp.quit()
