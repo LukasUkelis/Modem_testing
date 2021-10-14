@@ -2,9 +2,7 @@ import Modules.testing as testing
 import Modules.colors as bcolors
 import argparse
 def main():
-  
   arguments = Arguments()
-  print(arguments['username'])
   if arguments == 0:
     return 0
   else:
@@ -52,9 +50,11 @@ def Arguments():
         print(f"{bcolors.FAIL}Enter necessary arguments for ftp writing: address, username, password. More info in --help")
         return 0
       else:
+        
         __username = args.username
         __password = args.password
         __addressftp = args.addressftp
+        print(f"  Writing to {bcolors.WARNING}{__addressftp}{bcolors.ENDC} ftp server")
 
 
   # device address

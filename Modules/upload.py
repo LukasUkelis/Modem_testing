@@ -1,21 +1,28 @@
 import ftplib
-
+import Modules.colors as bcolors
 class upload:
-  __ftp_host = "192.168.10.58"
-  __ftp_user = "studentas"
-  __fp_password = "iotakademija"
   def __init__(self) -> None:
       pass 
-  def FTPuploadTest(self,deviceName):
+  def FTPuploadTest(self,deviceName,arguments):
+    ftp_host = arguments['address']
+    ftp_user = arguments['username']
+    ftp_password = arguments['password']
     fileName = deviceName
     filePath = './DataAndResults/{filename}'.format(filename= deviceName)
     try:
-      ftp = ftplib.FTP(self.__ftp_host)
-      ftp.login(user=self.__ftp_user,passwd=self.__fp_password)
+      ftp = ftplib.FTP(ftp_host)
+      ftp.login(user=ftp_user,passwd=ftp_password)
     except:
-      print("FTP connection error in -> FTPupload.py")
+      print(f"{bcolors.FAIL}FTP connection error in -> FTPupload.py{bcolors.ENDC}")
       return False
-    file = open(filePath,mode='rb')
-    ftp.storbinary('STOR '+fileName, file)
+    try:
+      file = open(filePath,mode='rb')
+    except:
+      print(f"{bcolors.FAIL}File open error in -> FTPupload.py{bcolors.ENDC}")
+      return False
+    try:
+      ftp.storbinary('STOR '+fileName, file)
+    except:
+      print(f"{bcolors.FAIL}File upload error -> FTPupload.py{bcolors.ENDC}")
     ftp.quit()
     

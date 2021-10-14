@@ -1,0 +1,16 @@
+
+Device name: RUTX11
+Connection type: ssh
+Address: 192.168.1.1
+
+Command,Extras,Status
+ATI,,Passed
+AT+CPAS=?,,Passed
+AT+GMR,,Passed
+AT+CSDH?,,Failed
+AT+CSDH?,,Passed
+AT+CLVL?,,Passed
+AT+CMUT=1,,Passed
+AT+CTZR=?,,Passed
+AT+CSQ,,Passed
+AT+CCLK?,,Passed

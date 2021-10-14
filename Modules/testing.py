@@ -81,5 +81,5 @@ class Testing:
         return False
       self.__testAllCommands()
       if arguments['ftp']:
-        self.__resultsUpload.FTPuploadTest(self.__devicePath,{'username':arguments['username'],'password':arguments['passwoer'],'address':arguments['addressftp']})
+        self.__resultsUpload.FTPuploadTest(self.__devicePath,{'username':arguments['username'],'password':arguments['password'],'address':arguments['addressftp']})
       self.__connection.disconnect()
