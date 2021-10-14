@@ -3,7 +3,6 @@
 ##### Required pip packages for the program: 
   +  Pyserial
   +  Paramiko
-  +  ftplib
 
 ##### Arguments:
 
