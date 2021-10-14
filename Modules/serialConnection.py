@@ -1,4 +1,5 @@
 import serial
+import time
 import Modules.colors as bcolors
 class Connection:
   __connection = None
@@ -24,8 +25,14 @@ class Connection:
   
   def executeCommand(self,command):
     try:
-      command = command+"\r\n"
-      self.__connection.write(command.encode())
+      comma = command['command']+"\r\n"
+      self.__connection.write(comma.encode())
+      time.sleep(1)
+      if(len(command['extras']) != 0):
+        for e in command['extras']:
+          time.sleep(1)
+          self.__connection.write(e.encode())
+          time.sleep(1)
     except:
       print(f"{bcolors.FAIL}Command writing error in -> serialConnection.py")
       return False

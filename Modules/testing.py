@@ -8,7 +8,7 @@ import Modules.colors as bcolors
 
 
 class Testing:
-  __dataFile = './DataAndResults/data.json'
+  __dataFile = './data.json'
   __device  = None
   __deviceData = None
   __connection = None
@@ -39,23 +39,37 @@ class Testing:
      return self.__connection.connect()
 
 
-  def __writeResult(self, id , answer ):
-    self.__results.writeCommand({'command':self.__deviceData.getRawCommand(id),'extras':self.__deviceData.getRawExtras(id),'answer':answer})
+  def __writeResult(self, id , status, expAnswer,recAnswer ):
+    self.__results.writeCommand({'command':self.__deviceData.getRawCommand(id),'extras':self.__deviceData.getRawExtras(id),'expAnswer':expAnswer,'recAnswer':recAnswer,'status':status})
 
 
-  def __testCommand(self,command,answer):
+  def __testCommand(self,command,answer,id):
+    status = 'ERROR'
+    recAnser = " "
     try:
-      commandReturn = self.__connection.writeCommand(command)
+      commandReturn = self .__connection.writeCommand(command)
     except:
-      return "ERROR"
+      status = "ERROR"
     if not commandReturn:
-      return "ERROR"
+      status = "ERROR"
+    i = 0
     for co in commandReturn:
-      if(co == answer):
-        self.__goodCommands = self.__goodCommands +1
-        return "Passed"
-    self.__badCommands  = self.__badCommands +1
-    return "Failed"
+      if(i!=0):
+        if(i==1):
+          recAnser = recAnser +co[:20]
+        else:
+          recAnser = recAnser +"\r\n"+co[:20]
+        if(co == answer):
+          self.__goodCommands = self.__goodCommands +1
+          status = "Passed"
+          break
+        else:
+          status = "Failed"
+      i = i+1
+    if(status == "Failed"):
+      self.__badCommands  = self.__badCommands +1
+    self.__writeResult(id,status,answer,recAnser)
+    return True
     
   
   
@@ -63,11 +77,11 @@ class Testing:
     id = 0
     print(f"Testing{bcolors.HEADER} {self.__deviceData.getCommandsCount()}{bcolors.ENDC} commands.")
     while id < self.__deviceData.getCommandsCount():
-      answer = self.__testCommand(self.__deviceData.getFormedCommand(id),self.__deviceData.getAnswer(id))
-      self.__writeResult(id,answer)
-      print(f"\r{bcolors.OKGREEN}Passed commands: {self.__goodCommands}   {bcolors.FAIL}Failed commands: {self.__badCommands}   {bcolors.OKBLUE}Current command: {self.__deviceData.getFormedCommand(id)}         {bcolors.ENDC}", end='\r')
+      command = self.__deviceData.getFormedCommand(id)['command']
+      self.__testCommand(self.__deviceData.getFormedCommand(id),self.__deviceData.getAnswer(id),id)
+      print(f"\r{bcolors.OKGREEN}Passed commands: {self.__goodCommands}   {bcolors.FAIL}Failed commands: {self.__badCommands}   {bcolors.OKBLUE}Current command: {command}                                      {bcolors.ENDC}", end='\r')
       id = id +1
-    print(f"\r                                                                                                                           ", end='\r')
+    print(f"\r                                                                                                ", end='\r')
     print(f"\r\n{bcolors.OKGREEN}Passed commands:  {self.__goodCommands}{bcolors.ENDC}")
     print(f"\r{bcolors.FAIL}Failed commands:  {self.__badCommands}{bcolors.ENDC}")
     self.__results.closeWriter()

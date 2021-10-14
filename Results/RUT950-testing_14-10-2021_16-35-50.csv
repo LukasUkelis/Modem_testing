@@ -1,0 +1,72 @@
+
+Device name: RUT950
+Connection type: ssh
+Address: 192.168.1.1
+
+Command,Extras,Expected answer,Received answer,Status
+ATI,,OK," 
+
+Quectel
+
+EC25
+
+Revision: EC25ECGAR0
+
+
+
+OK",Passed
+AT+CPAS=?,,OK," 
+
++CPAS: (0,3,4)
+
+
+
+OK",Passed
+AT&F,,OK," 
+
+OK",Passed
+AT+CMGF=1,,OK," 
+
+OK",Passed
+"AT+CMGS=""+37065882673""",Tekstas  ,+CMGS: 107," 
+
+> Tekstas
+
++CMGS: 108
+
+
+
+OK
+
+",Failed
+AT+CLVL?,,OK," 
+
++CLVL: 3
+
+
+
+OK",Passed
+AT+CMUT=1,,ERROR," 
+
+ERROR",Passed
+AT+CTZR=?,,OK," 
+
++CTZR: (0-2)
+
+
+
+OK",Passed
+AT+CSQ,,OK," 
+
++CSQ: 24,99
+
+
+
+OK",Passed
+AT+CCLK?,,OK," 
+
++CCLK: ""21/10/14,13:
+
+
+
+OK",Passed

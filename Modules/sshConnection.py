@@ -58,12 +58,20 @@ class Connection:
     return dataList.split("\n")
     
   def executeCommand(self,command):
+    
     try:
-      self.__shell.send(command+"\n")
+      self.__shell.send(command['command']+"\n")
       time.sleep(1)
+      if(len(command['extras']) != 0):
+        for e in command['extras']:
+          time.sleep(1)
+          self.__shell.send(e)
+          time.sleep(1)
+      
       while not self.__shell.recv_ready():
         time.sleep(2)
       data = self.__shell.recv(9999)
+      
       return self.__parsingDataToList(data)
       
     except:
@@ -77,3 +85,4 @@ class Connection:
     time.sleep(0.5)
     self.__shell.close()
     self.__ssh.close()
+

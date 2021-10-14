@@ -1,5 +1,4 @@
 class deviceData:
-
   __device = None
 
   def __init__(self,device):
@@ -14,18 +13,17 @@ class deviceData:
 
 
   def formExtras(self,id):
-      formed = ""
+      extrasList = []
       for extra in self.__device['commands'][id]['extras']:
-        formed = formed+extra
-      return formed
+        if(extra == 'z'):
+          extrasList.append("\x1a")
+        else:
+          extrasList.append(extra)
+      return extrasList
 
 
   def getFormedCommand(self,id):
-    if(len(self.__device['commands'][id]['extras'])>0):
-      extras = self.formExtras(id)
-      return self.__device['commands'][id]['command']+extras
-    else:
-      return self.__device['commands'][id]['command']
+    return {'command': self.__device['commands'][id]['command'],'extras':self.formExtras(id)}
 
 
   def getAnswer(self, id):
@@ -45,7 +43,8 @@ class deviceData:
     i = 0
     try:
       while i < len(self.__device['commands'][id]['extras']):
-        formed = formed + self.__device['commands'][id]['extras'][i]
+        formed = formed + self.__device['commands'][id]['extras'][i] + "  "
+
         i=i+2
     except:
       return False

@@ -8,7 +8,7 @@ class upload:
     ftp_user = arguments['username']
     ftp_password = arguments['password']
     fileName = deviceName
-    filePath = './DataAndResults/{filename}'.format(filename= deviceName)
+    filePath = './Results/{filename}'.format(filename= deviceName)
     try:
       ftp = ftplib.FTP(ftp_host)
       ftp.login(user=ftp_user,passwd=ftp_password)

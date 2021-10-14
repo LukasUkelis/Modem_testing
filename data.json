@@ -2,7 +2,7 @@
   "devices":
   [
     {
-      "device" : "RUTX11",
+      "device" : "RUT950",
       "connection" : "ssh",
       "username" : "root",
       "password" : "Admin123",
@@ -19,19 +19,19 @@
           "answer":"OK"
         },
         {
-          "command":"AT+GMR",
-          "extras":[],
-          "answer":"EG06ELAR04A04M4G"
-        },
-        {
-          "command":"AT+CSDH?",
-          "extras":[],
-          "answer":"BadAnswer"
-        },
-        {
-          "command":"AT+CSDH?",
+          "command":"AT&F",
           "extras":[],
           "answer":"OK"
+        },
+        {
+          "command":"AT+CMGF=1",
+          "extras":[],
+          "answer":"OK"
+        },
+        {
+          "command":"AT+CMGS=\"+37065882673\"",
+          "extras":["Tekstas","z"],
+          "answer":"+CMGS: 107"
         },
         {
           "command":"AT+CLVL?",
@@ -116,6 +116,21 @@
           "command":"AT+CCLK?",
           "extras":[],
           "answer":"OK"
+        },
+        {
+          "command":"AT&F",
+          "extras":[],
+          "answer":"OK"
+        },
+        {
+          "command":"AT+CMGF=1",
+          "extras":[],
+          "answer":"OK"
+        },
+        {
+          "command":"AT+CMGS=\"+37065882673\"",
+          "extras":["Tekstas","z"],
+          "answer":"+CMGS: 62"
         }
       ]
     }
