@@ -1,3 +1,5 @@
+#### Modem testing using python
+##### Program supports only python3
 ##### Required pip packages for the program: 
   +  Pyserial
   +  Paramiko
@@ -9,9 +11,9 @@
   +  -f/--ftp     ->> Enables writing to ftp server. By default is set to disable.
   +  -a/--address ->> Sets device address.
   +  -p/--port    ->> Sets address port. By default is set to 22.
-  +  -u/--username ->> Sets ftp server username. Mandatory if using writing to ftp.
-  +  -ps/--password ->> Sets ftp server password. Mandatory if using writing to ftp.
-  +  -af/--addressftp ->> Sets ftp server address. Mandatory if using writing to ftp.
+  +  -u/--username ->> Sets ftp server username. Necessary if using writing to ftp.
+  +  -ps/--password ->> Sets ftp server password. Necessary if using writing to ftp.
+  +  -af/--addressftp ->> Sets ftp server address. Necessary if using writing to ftp.
 
 ##### Mandatory arguments:
 
