@@ -2,9 +2,9 @@ Programa pritaikyta python3.
 
 
 Programai reikalingi pip paketai: 
-  1)  Pyserial.
-  2)  Paramiko.
-  3)  ftplib.
+  +  Pyserial.
+  +  Paramiko.
+  +  ftplib.
 
 Programos argumentai ir jų paskirtis:
 
