@@ -1,0 +1,6 @@
+
+Device name: TRM250
+Connection type: serial
+Address: 192.168.1.1
+
+Command,Extras,Status

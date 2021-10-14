@@ -6,18 +6,18 @@
 
 ##### Arguments:
 
-  +  -d/--device  ->> Sets device name.
-  +  -f/--ftp     ->> Enables writing to ftp server. By default is set to disable.
-  +  -a/--address ->> Sets device address.
-  +  -p/--port    ->> Sets address port. By default is set to 22.
-  +  -u/--username ->> Sets ftp server username. Necessary if using writing to ftp.
-  +  -ps/--password ->> Sets ftp server password. Necessary if using writing to ftp.
-  +  -af/--addressftp ->> Sets ftp server address. Necessary if using writing to ftp.
+  +  -d/--device  ->> Sets device name
+  +  -f/--ftp     ->> Enables writing to ftp server. By default is set to disable
+  +  -a/--address ->> Sets device address
+  +  -p/--port    ->> Sets address port. By default is set to 22
+  +  -u/--username ->> Sets ftp server username. Necessary if using writing to ftp
+  +  -ps/--password ->> Sets ftp server password. Necessary if using writing to ftp
+  +  -af/--addressftp ->> Sets ftp server address. Necessary if using writing to ftp
 
 ##### Mandatory arguments:
 
-  +  Device name.
-  +  Device address.
+  +  Device name
+  +  Device address
 
 ##### Program launch examples:
 
